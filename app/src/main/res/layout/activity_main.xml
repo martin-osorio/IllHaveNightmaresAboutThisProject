@@ -11,14 +11,28 @@
     android:orientation="vertical"
     tools:context="com.example.martinosoriolopez.processhomework.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!" />
-
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/Button_Play"
-        android:onClick="doMagic"/>
+        android:text="PLAY"
+        android:onClick="onPlayClick"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/Button_Stop"
+        android:text="STOP"
+        android:onClick="onStopClick"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/Button_Download"
+        android:text="Download"
+        android:onClick="onDownloadClick"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/Button_Race"
+        android:text="Race!"
+        android:onClick="onRaceClick"/>
 </LinearLayout>

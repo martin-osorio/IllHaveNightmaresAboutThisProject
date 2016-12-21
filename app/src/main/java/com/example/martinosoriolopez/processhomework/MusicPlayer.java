@@ -20,7 +20,13 @@ public class MusicPlayer extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Toast.makeText(this, "SERVICE STARTED", Toast.LENGTH_SHORT).show();
+        String command  = intent.getStringExtra("command");
+        if(command.equals("play")){
+            BeginPlaying();
+        }
+        else if(command.equals("stop")){
+            StopPlaying();
+        }
         return super.onStartCommand(intent, flags, startId);
     }
 
