@@ -35,17 +35,17 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void onRaceClick(View view) {
+    public void onCountClick(View view) {
         AsyncTaskCountdown atcd = new AsyncTaskCountdown();
+        atcd.executeOnExecutor(atcd.THREAD_POOL_EXECUTOR, null);
         AsyncTaskCountup atcu = new AsyncTaskCountup();
-        atcd.execute();
-        atcu.execute();
+        atcu.executeOnExecutor(atcu.THREAD_POOL_EXECUTOR, null);
     }
 
-    private class AsyncTaskCountdown extends AsyncTask<Void, Void, Void>{
+    private class AsyncTaskCountdown extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
-            for (int i = 0 ; i < 10; i++) {
+            for (int i = 10 ; i > 0; i--) {
                 Log.d(TAG, "CountDOWN:      " + i);
                 try {
                     Thread.sleep(1000);
@@ -57,10 +57,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private class AsyncTaskCountup extends AsyncTask<Void, Void, Void>{
+    private class AsyncTaskCountup extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
-            for (int i = 20 ; i > 10; i--) {
+            for (int i = 1 ; i < 11; i++) {
                 Log.d(TAG, "CountUP:        " + i);
                 try {
                     Thread.sleep(1000);

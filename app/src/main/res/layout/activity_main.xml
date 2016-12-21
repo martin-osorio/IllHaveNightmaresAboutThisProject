@@ -34,5 +34,5 @@
         android:layout_height="wrap_content"
         android:id="@+id/Button_Race"
         android:text="Race!"
-        android:onClick="onRaceClick"/>
+        android:onClick="onCountClick"/>
 </LinearLayout>

@@ -8,6 +8,7 @@ import android.os.IBinder;
 import android.widget.Toast;
 
 public class MusicPlayer extends Service {
+    private static final String TAG = "molTAG";
     MediaPlayer mediaPlayer;
     public MusicPlayer() {
     }
