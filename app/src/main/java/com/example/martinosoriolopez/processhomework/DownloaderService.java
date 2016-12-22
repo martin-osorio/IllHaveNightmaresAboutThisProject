@@ -58,6 +58,8 @@ public class DownloaderService extends Service {
         @Override
         protected void onPostExecute(BitmapDrawable bitmapDrawable) {
             Log.d(TAG, "onPostExecute: YOU MADE IT INSIDE ONPOSTEXECUTE");
+            //// TODO: 12/21/2016  
+            //do something with the image
             super.onPostExecute(bitmapDrawable);
         }
 
