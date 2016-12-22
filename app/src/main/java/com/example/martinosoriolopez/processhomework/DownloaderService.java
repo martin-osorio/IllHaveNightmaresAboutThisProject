@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.os.Environment;
 import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
@@ -63,7 +64,14 @@ public class DownloaderService extends Service {
             Log.d(TAG, "onPostExecute: YOU MADE IT INSIDE ONPOSTEXECUTE");
             //// TODO: 12/21/2016  
             //do something with the image
-            saveImage(X, "img_name.png", bitmap, Bitmap.CompressFormat.PNG,100);
+            File targetDirectory = new File(Environment.getExternalStorageDirectory() + File.separator + "drawable");
+            Boolean ableToSave = true;
+            if(!targetDirectory.exists()){
+                ableToSave = targetDirectory.mkdirs();
+            }
+            if(ableToSave){
+                saveImage(targetDirectory, "doge.png", bitmap, Bitmap.CompressFormat.PNG,100);
+            }
             super.onPostExecute(bitmap);
         }
 
