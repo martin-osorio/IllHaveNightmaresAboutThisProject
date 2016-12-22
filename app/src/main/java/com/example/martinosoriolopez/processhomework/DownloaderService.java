@@ -41,11 +41,6 @@ public class DownloaderService extends Service {
         return super.onStartCommand(intent, flags, startId);
     }
 
-    private void setImage(Drawable drawable) {
-        //// TODO: 12/21/2016
-        //mImageView.setBackgroundDrawable(drawable);
-    }
-
     public class DownloadImage extends AsyncTask<Void, Void, Bitmap> {
         @Override
         protected void onPreExecute() {
@@ -61,17 +56,18 @@ public class DownloaderService extends Service {
 
         @Override
         protected void onPostExecute(Bitmap bitmap) {
-            Log.d(TAG, "onPostExecute: YOU MADE IT INSIDE ONPOSTEXECUTE");
-            //// TODO: 12/21/2016  
-            //do something with the image
+            Log.d(TAG, "onPostExecute: about to create image folder");
             File targetDirectory = new File(Environment.getExternalStorageDirectory() + File.separator + "drawable");
             Boolean ableToSave = true;
             if(!targetDirectory.exists()){
-                ableToSave = targetDirectory.mkdirs();
+                //ableToSave = targetDirectory.mkdirs();
             }
             if(ableToSave){
+                Log.d(TAG, "onPostExecute: about to create image file");
                 saveImage(targetDirectory, "doge.png", bitmap, Bitmap.CompressFormat.PNG,100);
+                Log.d(TAG, "onPostExecute: created image file");
             }
+            Log.d(TAG, "onPostExecute: about to end the asyncTask");
             super.onPostExecute(bitmap);
         }
 
@@ -96,10 +92,12 @@ public class DownloaderService extends Service {
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
+            Log.d(TAG, "doInBackground: IMAGE DOWNLOADED");
             return null;
         }
 
         public boolean saveImage(File targetDirectory, String fileName, Bitmap bitmap, Bitmap.CompressFormat format, int quality) {
+            Log.d(TAG, "saveImage: about to try and save the file");
             File file = new File(targetDirectory, fileName);
             FileOutputStream fileOutputStream = null;
 
@@ -113,6 +111,7 @@ public class DownloaderService extends Service {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            Log.d(TAG, "saveImage: saved file");
             return false;
         }
     }
