@@ -1,6 +1,9 @@
 package com.example.martinosoriolopez.processhomework;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -8,6 +11,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,7 +42,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onDownloadClick(View view) {
-
+        Intent intent = new Intent(this, DownloaderService.class);
+        startService(intent);
     }
 
     public void onCountClick(View view) {

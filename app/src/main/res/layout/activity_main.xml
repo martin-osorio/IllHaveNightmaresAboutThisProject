@@ -26,13 +26,17 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/Button_Download"
-        android:text="Download"
-        android:onClick="onDownloadClick"/>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/Button_Race"
         android:text="Race!"
         android:onClick="onCountClick"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/Button_Download"
+        android:text="Download"
+        android:onClick="onDownloadClick"/>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/ImageView"/>
 </LinearLayout>
