@@ -13,6 +13,9 @@ import android.widget.Toast;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -42,7 +45,7 @@ public class DownloaderService extends Service {
         //mImageView.setBackgroundDrawable(drawable);
     }
 
-    public class DownloadImage extends AsyncTask<Void, Void, BitmapDrawable> {
+    public class DownloadImage extends AsyncTask<Void, Void, Bitmap> {
         @Override
         protected void onPreExecute() {
             Log.d(TAG, "onPreExecute: ");
@@ -56,21 +59,22 @@ public class DownloaderService extends Service {
         }
 
         @Override
-        protected void onPostExecute(BitmapDrawable bitmapDrawable) {
+        protected void onPostExecute(Bitmap bitmap) {
             Log.d(TAG, "onPostExecute: YOU MADE IT INSIDE ONPOSTEXECUTE");
             //// TODO: 12/21/2016  
             //do something with the image
-            super.onPostExecute(bitmapDrawable);
+            saveImage(X, "img_name.png", bitmap, Bitmap.CompressFormat.PNG,100);
+            super.onPostExecute(bitmap);
         }
 
         @Override
-        protected BitmapDrawable doInBackground(Void... voids) {
+        protected Bitmap doInBackground(Void... voids) {
             publishProgress();
             Bitmap bitmap;
-            BitmapDrawable bitmapDrawable = null;
             InputStream inputStream;
             BufferedInputStream bufferedInputStream;
             URL url;
+
             try {
                 url = new URL("http://www.dogtrainingbasics.com/wp-content/uploads/2014/08/dog-meme-pug-life.jpg");
                 inputStream = url.openStream();
@@ -78,14 +82,30 @@ public class DownloaderService extends Service {
                 bitmap = BitmapFactory.decodeStream(bufferedInputStream);
                 inputStream.close();
                 bufferedInputStream.close();
-                bitmapDrawable = new BitmapDrawable(getApplicationContext().getResources(), bitmap);
-                return bitmapDrawable;
+                return bitmap;
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
             return null;
+        }
+
+        public boolean saveImage(File targetDirectory, String fileName, Bitmap bitmap, Bitmap.CompressFormat format, int quality) {
+            File file = new File(targetDirectory, fileName);
+            FileOutputStream fileOutputStream = null;
+
+            try {
+                fileOutputStream = new FileOutputStream(file);
+                bitmap.compress(format, quality, fileOutputStream);
+                fileOutputStream.close();
+                return true;
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return false;
         }
     }
 }
